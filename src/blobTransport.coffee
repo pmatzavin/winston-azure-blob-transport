@@ -13,6 +13,8 @@ Transport = winston.Transport
 
 MAX_BLOCK_SIZE = azure.Constants.BlobConstants.MAX_APPEND_BLOB_BLOCK_SIZE
 
+messageSymbol = Symbol.for("message")
+
 class BlobTransport extends Transport
 
   constructor: ({ @account, @containerName, @blobName, @level = "info", @nameResolver }) ->
@@ -65,7 +67,7 @@ class BlobTransport extends Transport
 
     if __doesNotExistFile() then __createAndAppend() else __handle err
 
-  _formatLine: ({level, msg, meta}) => "[#{level}] - #{@_timestamp()} - #{msg} #{@_meta(meta)}\n"
+  _formatLine: ({level, msg, meta}) => @_meta[messageSymbol]
 
   _timestamp: -> new Date().toISOString()
 
