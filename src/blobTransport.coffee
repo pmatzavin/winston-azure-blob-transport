@@ -67,7 +67,7 @@ class BlobTransport extends Transport
 
     if __doesNotExistFile() then __createAndAppend() else __handle err
 
-  _formatLine: ({level, msg, meta}) => @_meta[messageSymbol]
+  _formatLine: ({level, msg, meta}) => meta[messageSymbol]
 
   _timestamp: -> new Date().toISOString()
 
